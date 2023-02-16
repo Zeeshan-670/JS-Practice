@@ -331,27 +331,150 @@ const poll = {
       answer < this.answer.length &&
       this.answer[answer]++;
 
-    this.displayResult()
-    this.displayResult('string')
+    this.displayResult();
+    this.displayResult('string');
   },
 
-  displayResult(type = "array") {
-    if (type === "array") {
-      console.log(this.answer)
-    } else if (type === "string") {
-      console.log(`Poll result are ${this.answer.join(', ')}`)
+  displayResult(type = 'array') {
+    if (type === 'array') {
+      console.log(this.answer);
+    } else if (type === 'string') {
+      console.log(`Poll result are ${this.answer.join(', ')}`);
     }
-  }
+  },
 };
 
-document.querySelector(".poll").addEventListener('click', poll.registerNewAnswer.bind(poll));
+document
+  .querySelector('.poll')
+  .addEventListener('click', poll.registerNewAnswer.bind(poll));
 
+poll.displayResult.call(
+  {
+    answer: [5, 2, 3],
+  },
+  'string'
+);
+poll.displayResult.call(
+  {
+    answer: [1, 5, 3, 9, 6, 1],
+  },
+  'string'
+);
 poll.displayResult.call({
-  answer: [5, 2, 3]
-}, "string")
-poll.displayResult.call({
-  answer: [1, 5, 3, 9, 6, 1]
-}, "string")
-poll.displayResult.call({
-  answer: [1, 5, 3, 9, 6, 1]
-})
+  answer: [1, 5, 3, 9, 6, 1],
+});
+
+/**
+ * * * Lecture no 8 Of section 10.
+ * * * Immediately Invoked Function Expression (IIFE).
+ */
+
+const runOnce = () => {
+  console.log('This will never run again');
+};
+
+runOnce();
+
+/**
+ * * IIFE
+ */
+
+(function () {
+  console.log('This will never run again');
+
+  const isPrivate = 23;
+})();
+
+// console.log(isPrivate);
+
+(() => console.log('This will ALSO never run again'))();
+
+{
+  const isPrivate = 23;
+  var notPrivate = 46;
+}
+
+// console.log(isPrivate);
+console.log(notPrivate);
+
+/**
+ * * * Lecture no 9 Of section 10.
+ * * * Clousers.
+ */
+
+/**
+ * ! 👉 Any function always has access to the variable Envirnment Of the Execution    Context in which  the function was created...
+ * ! 👉 Closure: VE attached to the function, exactly as it was at the time and place the function was created.
+ */
+
+const secureBooking = function () {
+  let passengerCount = 0;
+  return function () {
+    passengerCount++;
+    console.log(`${passengerCount} passengers`);
+  };
+};
+
+const booker = secureBooking();
+booker();
+
+booker();
+booker();
+
+/**
+ * * * Lecture no 10 Of section 10.
+ * * * More Examples Clousers.
+ */
+
+// Example 1
+
+let f;
+
+const g = function () {
+  const a = 23;
+  f = function () {
+    console.log(a * 2);
+  };
+};
+
+const h = function () {
+  const b = 777;
+  f = function () {
+    console.log(b * 2);
+  };
+};
+
+g();
+f();
+
+// Re-assigning F Function
+
+h();
+f();
+
+// Example 2
+const boardPassengers = function (n, wait) {
+  const perGroup = n / 3;
+
+  setTimeout(function () {
+    console.log(`We are now boarding all ${n} passengers.`);
+    console.log(`There are 3 groups, each with ${perGroup} passengers`);
+  }, wait * 1000);
+
+  console.log(`Will start boarding in ${wait} seconds`);
+};
+
+boardPassengers(180, 3);
+
+/**
+ * * Coding Challenge 2
+ */
+
+(function () {
+  const header = document.querySelector('h1');
+  header.style.color = 'red';
+
+  document.querySelector('body').addEventListener('click', function () {
+    header.style.color = 'white';
+  });
+})();
