@@ -71,11 +71,11 @@ const inputClosePin = document.querySelector('.form__input--pin');
  * * Lectures
  */
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
+// const currencies = new Map([
+//   ['USD', 'United States dollar'],
+//   ['EUR', 'Euro'],
+//   ['GBP', 'Pound sterling'],
+// ]);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
@@ -150,15 +150,70 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
  * * The NEW AT Method
  */
 
-const arr = [23, 11, 64];
-console.log(arr[0]);
-console.log(arr.at(0));
+// const arr = [23, 11, 64];
+// console.log(arr[0]);
+// console.log(arr.at(0));
 
 
 // Getting last array element
-console.log(arr[arr.length - 1]);
-console.log(arr.slice(-1)[0]);
-console.log(arr.at(-1));
+// console.log(arr[arr.length - 1]);
+// console.log(arr.slice(-1)[0]);
+// console.log(arr.at(-1));
 
-console.log("zeeshan".at(0))
-console.log("zeeshan".at(-1))
+// console.log("zeeshan".at(0))
+// console.log("zeeshan".at(-1))
+
+
+/**
+ * * Lecture 3 of Section 11
+ * * Looping Arrays: forEach
+ */
+
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const [index, movement] of Object.entries(movements)) {
+//   if (movement > 0) {
+//     console.log(`Movement ${Number(index) + 1}: You deposited ${movement}`)
+//   } else {
+//     console.log(`Movement ${Number(index) + 1}: You withdrew ${Math.abs(movement)}`)
+//   }
+// }
+
+// console.log('-------------------')
+// console.log('----- FOREACH -----')
+// console.log('-------------------')
+
+// movements.forEach(function (movement, index, array) {
+//   console.log(array)
+//   if (movement > 0) {
+//     console.log(`Movement ${index+1}: You deposited ${movement}`)
+//   } else {
+//     console.log(`Movement ${index+1}: You withdrew ${Math.abs(movement)}`)
+//   }
+// })
+
+
+/**
+ * * Lecture 3 of Section 11
+ * * forEach With Maps and Sets
+ */
+
+// Map
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`)
+})
+
+// Set
+const currenciesUnique = new Set(["USD", "GBP", "USD", "EUR", "EUR"]);
+console.log(currenciesUnique);
+
+currenciesUnique.forEach(function (value, key, set) {
+  console.log(`${key}: ${set}`)
+})
