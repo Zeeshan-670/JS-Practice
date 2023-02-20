@@ -201,6 +201,40 @@ btnTransfer.addEventListener('click', e => {
   // console.log(accounts);
 });
 
+btnLoan.addEventListener('click', e => {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    // Add movements
+    currentAccount.movements.push(amount);
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+
+  inputLoanAmount.value = '';
+});
+
+btnClose.addEventListener('click', e => {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.userName &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.userName === currentAccount.userName
+    );
+    // Delete Account
+    accounts.splice(index, 1);
+
+    // Hide UI
+    containerApp.style.opacity = 0;
+  }
+});
+
 /**
  * * *** Lecture 8 of Section 11
  * * *** Coding Callenge NO 1
@@ -379,3 +413,65 @@ btnTransfer.addEventListener('click', e => {
 
 // const account = accounts.find(acc => acc.owner === "Jessica Davis")
 // console.log(account)
+
+/**
+ * * Lecture 18 of Section 11
+ * * Some and Every
+ */
+
+/**
+ * * Some
+ */
+console.log(movements);
+
+/**
+ * * Equality
+ */
+console.log(movements.includes(-130));
+
+/**
+ * * Condition
+ */
+console.log(movements.some(mov => mov === -130));
+
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+/**
+ * * Every
+ */
+
+console.log(movements.every(mov => mov > 0));
+console.log(account4.movements.every(mov => mov > 0));
+
+// Seprate CallBacks
+
+const desposit = mov => mov > 0;
+console.log(movements.some(desposit));
+console.log(movements.every(desposit));
+console.log(movements.filter(desposit));
+
+/**
+ * * Lecture 19 of Section 11
+ * * Flat anf FlatMap
+ */
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat());
+
+const overAllBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overAllBalance);
+
+/**
+ * * Flat Map
+ */
+const overAllBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(overAllBalance);
