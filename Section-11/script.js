@@ -83,9 +83,10 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
  * * Creating DOM Elements
  */
 
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+  const movs = sort ? movements.slice.sort((a, b) => a - b) : movements;
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
 
     const html = `
@@ -233,6 +234,14 @@ btnClose.addEventListener('click', e => {
     // Hide UI
     containerApp.style.opacity = 0;
   }
+});
+
+let sorted = false;
+btnSort.addEventListener('click', e => {
+  e.preventDefault();
+
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /**
@@ -422,56 +431,134 @@ btnClose.addEventListener('click', e => {
 /**
  * * Some
  */
-console.log(movements);
+// console.log(movements);
 
 /**
  * * Equality
  */
-console.log(movements.includes(-130));
+// console.log(movements.includes(-130));
 
 /**
  * * Condition
  */
-console.log(movements.some(mov => mov === -130));
+// console.log(movements.some(mov => mov === -130));
 
-const anyDeposits = movements.some(mov => mov > 0);
-console.log(anyDeposits);
+// const anyDeposits = movements.some(mov => mov > 0);
+// console.log(anyDeposits);
 
 /**
  * * Every
  */
 
-console.log(movements.every(mov => mov > 0));
-console.log(account4.movements.every(mov => mov > 0));
+// console.log(movements.every(mov => mov > 0));
+// console.log(account4.movements.every(mov => mov > 0));
 
 // Seprate CallBacks
 
-const desposit = mov => mov > 0;
-console.log(movements.some(desposit));
-console.log(movements.every(desposit));
-console.log(movements.filter(desposit));
+// const desposit = mov => mov > 0;
+// console.log(movements.some(desposit));
+// console.log(movements.every(desposit));
+// console.log(movements.filter(desposit));
 
 /**
  * * Lecture 19 of Section 11
  * * Flat anf FlatMap
  */
 
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
 
-const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
-console.log(arrDeep.flat());
+// const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+// console.log(arrDeep.flat());
 
-const overAllBalance = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overAllBalance);
+// const overAllBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overAllBalance);
 
 /**
  * * Flat Map
  */
-const overAllBalance2 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((acc, mov) => acc + mov, 0);
-console.log(overAllBalance);
+// const overAllBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, mov) => acc + mov, 0);
+// console.log(overAllBalance);
+
+/**
+ * * Lecture 20 of Section 11
+ * * Sorting Arrays
+ */
+
+/**
+ * * Strings
+ */
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// console.log(owners);
+
+/**
+ * * Numbers
+ */
+
+// console.log(movements);
+// Return < 0 , 0, A, B (Keep order)
+// Return > 0 , 0, B, A (switch order);
+
+/**
+ * * Ascending
+ */
+// movements.sort((a, b) => {
+//   if (a > b) return 1;
+//   if (a < b) return -1;
+// });
+// console.log(movements);
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+/**
+ * * Descending
+ */
+// movements.sort((a, b) => {
+//   if (a > b) return -1;
+//   if (a > b) return 1;
+// });
+// console.log(movements);
+
+// movements.sort((a, b) => b - a);
+// console.log(movements);
+
+const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7, 8));
+// Empty Arrays + fill methods
+const x = new Array(8);
+console.log(x);
+// console.log(x.map(() => 5));
+x.fill(1, 3, 5);
+console.log(x);
+
+arr.fill(23, 2, 6);
+console.log(arr);
+
+// Array.From
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// const diceRolls = Array.from({ length: 100 }, () =>
+//   (Math.random() * 6).toFixed()
+// );
+// console.log(diceRolls);
+
+labelBalance.addEventListener('click', () => {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('€', ''))
+  );
+  console.log(movementsUI);
+
+  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+  console.log(movementsUI2);
+});
