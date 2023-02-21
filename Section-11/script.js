@@ -528,37 +528,66 @@ btnSort.addEventListener('click', e => {
 // movements.sort((a, b) => b - a);
 // console.log(movements);
 
-const arr = [1, 2, 3, 4, 5, 6, 7, 8];
-console.log(new Array(1, 2, 3, 4, 5, 6, 7, 8));
-// Empty Arrays + fill methods
-const x = new Array(8);
-console.log(x);
-// console.log(x.map(() => 5));
-x.fill(1, 3, 5);
-console.log(x);
+// const arr = [1, 2, 3, 4, 5, 6, 7, 8];
+// console.log(new Array(1, 2, 3, 4, 5, 6, 7, 8));
+// // Empty Arrays + fill methods
+// const x = new Array(8);
+// console.log(x);
+// // console.log(x.map(() => 5));
+// x.fill(1, 3, 5);
+// console.log(x);
 
-arr.fill(23, 2, 6);
-console.log(arr);
+// arr.fill(23, 2, 6);
+// console.log(arr);
 
-// Array.From
-const y = Array.from({ length: 7 }, () => 1);
-console.log(y);
+// // Array.From
+// const y = Array.from({ length: 7 }, () => 1);
+// console.log(y);
 
-const z = Array.from({ length: 7 }, (_, i) => i + 1);
-console.log(z);
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+// console.log(z);
 
 // const diceRolls = Array.from({ length: 100 }, () =>
 //   (Math.random() * 6).toFixed()
 // );
 // console.log(diceRolls);
 
-labelBalance.addEventListener('click', () => {
-  const movementsUI = Array.from(
-    document.querySelectorAll('.movements__value'),
-    el => Number(el.textContent.replace('€', ''))
-  );
-  console.log(movementsUI);
+// labelBalance.addEventListener('click', () => {
+//   const movementsUI = Array.from(
+//     document.querySelectorAll('.movements__value'),
+//     el => Number(el.textContent.replace('€', ''))
+//   );
+//   console.log(movementsUI);
 
-  const movementsUI2 = [...document.querySelectorAll('.movements__value')];
-  console.log(movementsUI2);
-});
+//   const movementsUI2 = [...document.querySelectorAll('.movements__value')];
+//   console.log(movementsUI2);
+// });
+
+/**
+ * * Lecture 21 of Section 11
+ * * Arrays Method Pratice
+ */
+
+/**
+ * * 1.
+ */
+
+const bankDepositSum = accounts
+  .flatMap(acc => acc.movements)
+  .filter(mov => mov > 0)
+  .reduce((sum, cur) => sum + cur, 0);
+console.log(bankDepositSum);
+
+/**
+ * * 2.
+ */
+
+// const numDeposits1000 = accounts
+//   .flatMap(acc => acc.movements)
+//   .filter(dep => dep >= 1000).length;
+
+const numDeposits1000 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((count, cur) => (cur >= 1000 ? count + 1 : count), 0);
+
+console.log(numDeposits1000);
