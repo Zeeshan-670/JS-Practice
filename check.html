@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <button onclick="toggleInput()">Add Item</button>
+      <div id="input-container" style="display: none">
+        <input type="text" id="new-item-input" placeholder="Enter new item" />
+        <button onclick="addItem()">Add</button>
+        <ul id="item-list"></ul>
+      </div>
+    </div>
+
+    <script>
+      let items = []; // to store the items
+
+      function toggleInput() {
+        const inputContainer = document.getElementById('input-container');
+        inputContainer.style.display =
+          inputContainer.style.display === 'none' ? 'block' : 'none';
+      }
+
+      function addItem() {
+        const newItemInput = document.getElementById('new-item-input');
+        const newItemValue = newItemInput.value;
+        if (newItemValue.trim() === '') return; // checking if input is empty
+        items.push(newItemValue); // add the new item to the list
+        newItemInput.value = ''; // clear the input field
+        displayItems(); // update the displayed items
+      }
+
+      function displayItems() {
+        const itemList = document.getElementById('item-list');
+        itemList.innerHTML = ''; // clear the current list
+        items.forEach((item) => {
+          const li = document.createElement('li');
+          li.textContent = item;
+          itemList.appendChild(li); // append each item to the list
+        });
+      }
+    </script>
+  </body>
+</html>
